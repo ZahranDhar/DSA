@@ -22,5 +22,5 @@ int main()
 
   printf("The size of the array is %d\n",sizeof(arr));
 
-  return 0;
+  
 }
