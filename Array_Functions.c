@@ -2,7 +2,7 @@
 
 #include<stdio.h>
 
-void create(int arr[], int n);
+int create(int arr[]);
 void display(int arr[], int n, int flag);
 void search(int arr[], int n);
 int insertion(int arr[],int n);
@@ -13,10 +13,7 @@ int main()
 
   int arr[100],n;
 
-  printf("Enter the length of the array.\n");
-  scanf("%d",&n);
-  
-  create(arr,n);
+  n=create(arr);
   display(arr,n,0);
   search(arr,n);
   n=insertion(arr,n);
@@ -25,14 +22,20 @@ int main()
   return 0;
 }
 
-void create(int arr[], int n)
+int create(int arr[])
 {
-  int i;
+  int i,n;
+
+  printf("Enter the length of the array.\n");
+  scanf("%d",&n);
+
   for(i=0;i<n;i++)
   {
     printf("Enter the element %d\n",(i+1));
     scanf("%d",&arr[i]);
   }
+
+  return n;
 }
 
 void display(int arr[], int n, int flag)
