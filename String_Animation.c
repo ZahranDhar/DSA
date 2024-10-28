@@ -1,3 +1,5 @@
+//String Animation
+
 #include<stdio.h>
 #include<string.h>
 #include<ctype.h> 
@@ -36,6 +38,7 @@ int main()
           printf("\b");
           fflush(stdout);
           j++;
+
         }
       }
     }

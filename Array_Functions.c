@@ -2,61 +2,142 @@
 
 #include<stdio.h>
 
-void create(int a[], int n);
-void display(int a[], int n);
-void search(int a[], int n, int t);
+void create(int arr[], int n);
+void display(int arr[], int n, int flag);
+void search(int arr[], int n);
+int insertion(int arr[],int n);
+void deletion(int arr[], int n);
 
 int main()
 {
 
-  int a[10],t;
+  int arr[100],n;
 
-  create(a,10);
-  display(a,10);
-
-  printf("\nEnter the element to search for.\n");
-  scanf("%d\n",&t);
-
-  search(a,10,t);
+  printf("Enter the length of the array.\n");
+  scanf("%d",&n);
+  
+  create(arr,n);
+  display(arr,n,0);
+  search(arr,n);
+  n=insertion(arr,n);
+  deletion(arr,n);
 
   return 0;
 }
 
-void create(int a[], int n)
+void create(int arr[], int n)
 {
   int i;
   for(i=0;i<n;i++)
   {
-    printf("Enter the element %d\n",i+1);
-    scanf("%d\n",&a[i]);
+    printf("Enter the element %d\n",(i+1));
+    scanf("%d",&arr[i]);
   }
 }
 
-void display(int a[], int n)
+void display(int arr[], int n, int flag)
 {
   int i;
-  printf("The elements are:\n");
+  if(flag==0)
+  {
+    printf("The elements of the array are:\n");
+  }
+  else
+  {
+    printf("The elements of the new array are:.\n");
+  }
   for(i=0;i<n;i++)
   {
-    printf("%d ",a[i]);
+    printf("%d ",arr[i]);
   }
 }
 
-void search(int a[], int n, int t)
+void search(int arr[], int n)
 {
-  int i,flag=0;
+  int i,flag=0,x;
+  
+  printf("\nEnter the element to search for.\n");
+  scanf("%d",&x);
   for(i=0;i<n;i++)
   {
-    if(a[i]==t)
+    if(arr[i]==x)
     {
-      printf("The elemtnt was found at position %d",i++);
+      printf("The elemtnt was found at position %d.\n",(i+1));
       flag=1;
-      break;
     }
   }
   
   if(flag==0)
   {
-    printf("The element was not found.");
+    printf("The element was not found.\n");
   }
+}
+
+int insertion(int arr[],int n)
+{
+   int i;
+   //Insertion at start
+   for(i=(n-1);i>=0;i--)
+   {
+    arr[(i+1)]=arr[i];
+   }
+   n++;
+   printf("Enter the element at start.\n");
+   scanf("%d",&arr[0]);
+   display(arr,n,1);
+
+   //Insertion at end
+   printf("\nEnter the element at end.\n");
+   scanf("%d",&arr[n]);
+   n++;
+   display(arr,n,1);
+
+   //Insertion at n
+   int p;
+   printf("\nEnter the position where you want to add an element.\n");
+   scanf("%d",&p);
+   for(i=n;i>=(p-1);i--)
+   {
+    arr[(i+1)]=arr[i];
+   }
+   printf("Enter the element at %d.\n",p);
+   scanf("%d",&arr[(p-1)]);
+   n++;
+   display(arr,n,1);
+
+   return n;
+}
+
+void deletion(int arr[], int n)
+{
+  int i;
+  //Deletion at start
+  for(i=0;i<n;i++)
+  {
+    arr[i]=arr[(i+1)];
+  }  
+  n--;
+  printf("\n//Element at start deleted//");
+  display(arr,n,1);
+
+  //Deletion at end
+  arr[(n-1)]=arr[(n+50)];
+  n--;
+  printf("\n//Element at end deleted//\n");
+  display(arr,n,1);
+
+  //Deletion at n
+  int p;
+  printf("\nEnter the position where you want to delete an element\n");
+  scanf("%d",&p);
+  for(i=(p-1);i<n;i++)
+  {
+    if((i+1)!=(n))
+    {
+      arr[i]=arr[(i+1)];
+    }
+  }
+  n--;
+  printf("\n//Element at %d deleted//\n",p);
+  display(arr,n,1);
 }
