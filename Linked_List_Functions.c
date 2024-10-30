@@ -10,12 +10,12 @@ struct Node
     struct Node *Link;
 };
 
-void read(struct Node* temp);
+void read(struct Node *temp);
 void display(struct Node *temp, int flag);
-void search(struct Node* temp);
+void search(struct Node *temp);
 struct Node* insertion(struct Node *temp);
-void deletion(struct Node* temp);
-void freespace(struct Node* temp);
+void deletion(struct Node *temp);
+void freespace(struct Node *temp);
 
 
 int main()
@@ -137,7 +137,7 @@ struct Node* insertion(struct Node *temp)
       pres=pres->Link;
       i++;
     }
-    prev->Link=Nth;
+    prev->Link=Nth; 
     Nth->Link=pres;
     display(Zeroth,1);
 
