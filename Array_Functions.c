@@ -80,9 +80,9 @@ int insertion(int arr[],int n)
 {
    int i;
    //Insertion at start
-   for(i=(n-1);i>=0;i--)
+   for(i=n;i>0;i--)
    {
-    arr[(i+1)]=arr[i];
+    arr[i]=arr[(i-1)];
    }
    n++;
    printf("Enter the element at start.\n");
@@ -99,9 +99,9 @@ int insertion(int arr[],int n)
    int p;
    printf("\nEnter the position where you want to add an element.\n");
    scanf("%d",&p);
-   for(i=n;i>=(p-1);i--)
+   for(i=n;i>=p;i--)
    {
-    arr[(i+1)]=arr[i];
+    arr[i]=arr[(i-1)];
    }
    printf("Enter the element at %d.\n",p);
    scanf("%d",&arr[(p-1)]);
@@ -115,7 +115,7 @@ void deletion(int arr[], int n)
 {
   int i;
   //Deletion at start
-  for(i=0;i<n;i++)
+  for(i=0;i<(n-1);i++)
   {
     arr[i]=arr[(i+1)];
   }  
@@ -133,12 +133,9 @@ void deletion(int arr[], int n)
   int p;
   printf("\nEnter the position where you want to delete an element\n");
   scanf("%d",&p);
-  for(i=(p-1);i<n;i++)
+  for(i=(p-1);i<(n-1);i++)
   {
-    if((i+1)!=(n))
-    {
-      arr[i]=arr[(i+1)];
-    }
+    arr[i]=arr[(i+1)]; 
   }
   n--;
   printf("\n//Element at %d deleted//\n",p);

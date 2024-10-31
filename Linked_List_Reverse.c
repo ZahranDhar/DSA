@@ -48,19 +48,20 @@ void display(struct Node* temp)
 
 void revlist(struct Node* temp)
 {
-  //Node Counter
-  int n=1;
-  struct Node* tempn=temp;
-  while(temp->Link!=NULL)
-  {
-    temp=temp->Link;
-    n++;
-  }
+  // //Node Counter
+  // int n=1;
+  // struct Node* tempn=temp;
+  // while(temp->Link!=NULL)
+  // {
+  //   temp=temp->Link;
+  //   n++;
+  // }
 
   //Linked List Reverse
-  struct Node* First=tempn;
+
+  while(temp!=)
   
-  
+
 
   display(First);
 }
