@@ -11,12 +11,7 @@ int main()
   scanf("%s",&str);
 
   i=0;
-  while(str[i]!='\0')
-  {
-    i++;
-  }
-
-  printf("The length of the string is %d.\n",i);
+  scanf("%d",&i);
  
   return 0;
 }
