@@ -10,39 +10,69 @@ struct Node
     struct Node *Link;
 };
 
-void read(struct Node *temp);
-void display(struct Node *temp, int flag);
-void search(struct Node *temp);
-struct Node* insertion(struct Node *temp);
-void deletion(struct Node *temp);
-void freespace(struct Node *temp);
+struct Node *Head;
+
+void create();
+void read();
+void display(int flag);
+void search();
+void insertion();
+void deletion();
+void freespace();
 
 
 int main()
 {
-    struct Node* First=(struct Node*)(malloc(sizeof(struct Node)));
-    struct Node* Second=(struct Node*)(malloc(sizeof(struct Node)));
-    struct Node* Third=(struct Node*)(malloc(sizeof(struct Node)));
-    struct Node* Zeroth=NULL;
-    
-    First->Link=Second;
-    Second->Link=Third;
-    Third->Link=NULL;
-    
-    read(First);
-    display(First,0);
-    search(First);
-    Zeroth=insertion(First);
-    deletion(Zeroth);
-    
-    freespace(First);
+    create();
+    read();
+    display(0);
+    search();
+    insertion();
+    deletion();
+    freespace();
     
     return 0;
 }
 
-void read(struct Node* temp)
+void create()
+{
+  int i,n;
+
+  do
+  {
+    printf("Enter the number of Nodes.\n");
+    scanf("%d",&n);
+
+    if(n<2)
+    {
+      printf("ERROR\n");
+    }
+  } while (n<2);
+
+  struct Node *Temp_1=NULL;
+  for(i=1;i<=n;i++)
+  {
+    if(i==1)
+    {
+      Head=(struct Node*)(malloc(sizeof(struct Node)));
+      
+      Temp_1=Head;
+    }
+    else
+    {
+      struct Node *Temp_2=(struct Node*)(malloc(sizeof(struct Node)));
+      Temp_2->Link=NULL;
+
+      Temp_1->Link=Temp_2;
+      Temp_1=Temp_2;
+    }
+  }
+}
+
+void read()
 {
     int n=1;
+    struct Node* temp=Head;
     while(temp!=NULL)
     {
     printf("Enter Data for Node %d.\n",n);
@@ -52,8 +82,9 @@ void read(struct Node* temp)
     }
 }
 
-void display(struct Node *temp, int flag)
+void display(int flag)
 {
+    struct Node *temp=Head;
     if(flag==0)
     {
       printf("The Data is:\n");
@@ -71,9 +102,10 @@ void display(struct Node *temp, int flag)
     printf("\n");
 }
 
-void search(struct Node* temp)
+void search()
 {
   int x,n=1,flag=0;
+  struct Node *temp=Head;
 
   printf("Enter the Data you want to search for.\n");
   scanf("%d",&x);
@@ -94,14 +126,18 @@ void search(struct Node* temp)
   }
 }
 
-struct Node* insertion(struct Node *temp)
+void insertion()
 {
+    struct Node *temp=Head;
     //Insertion at start
     struct Node* Zeroth=(struct Node*)(malloc(sizeof(struct Node)));
     printf("Enter Data for new first Node.\n");
     scanf("%d",&(Zeroth->Data));
     Zeroth->Link=temp;
-    display(Zeroth,1);
+
+    //Head Pointer Updated
+    Head=Zeroth;
+    display(1);
     
     //Temp Pointer Updated
     temp=Zeroth;     
@@ -117,7 +153,7 @@ struct Node* insertion(struct Node *temp)
     temp=temp->Link;
     }
     temp->Link=Fourth;
-    display(Zeroth,1);
+    display(1);
 
     //Temp Pointer Updated
     temp=Zeroth; 
@@ -139,19 +175,21 @@ struct Node* insertion(struct Node *temp)
     }
     prev->Link=Nth; 
     Nth->Link=pres;
-    display(Zeroth,1);
-
-    return Zeroth;
+    display(1);
 
 }
 
-void deletion(struct Node* temp)
+void deletion()
 {
+  struct Node* temp=Head;
   //Deleting first Node
   struct Node* tempn=temp->Link;
   free(temp);
   printf("//First Node deleted//.\n");
-  display(tempn,1);
+
+  //Head Node Updated
+  Head=tempn;
+  display(1);
 
   //Temp Pointer Updated
   temp=tempn; 
@@ -164,7 +202,7 @@ void deletion(struct Node* temp)
   free(temp->Link);
   temp->Link=NULL;
   printf("//Last Node deleted//.\n");
-  display(tempn,1);
+  display(1);
 
   //Temp Pointer Updated
   temp=tempn; 
@@ -186,12 +224,13 @@ void deletion(struct Node* temp)
   prev->Link=next;
   free(pres);
   printf("//Nth Node deleted//.\n");
-  display(tempn,1);
+  display(1);
 
 }
 
-void freespace(struct Node* temp)
+void freespace()
 {
+  struct Node* temp=Head;
   struct Node* tempn=NULL;
   while(temp!=NULL)
   {
