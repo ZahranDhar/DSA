@@ -9,9 +9,11 @@ struct Node
 
   struct Node *Link;
 };
+
 struct Node *Head;
+
 void create();
-void display(struct Node *Temp);
+void display();
 
 int main()
 {
@@ -44,13 +46,16 @@ void create()
 
       printf("Enter Data for Node %d.\n",i);
       scanf("%d",&Head->Data);
+
       Temp_1=Head;
     }
     else
     {
       struct Node *Temp_2=(struct Node*)(malloc(sizeof(struct Node)));
+
       printf("Enter Data for Node %d.\n",i);
       scanf("%d",&Temp_2->Data);
+
       Temp_2->Link=NULL;
 
       Temp_1->Link=Temp_2;
@@ -58,12 +63,14 @@ void create()
     }
   }
 
-  display(Head);
+  display();
 
 }
 
-void display(struct Node *Temp)
+void display()
 {
+    struct Node *Temp=Head;
+    
     printf("The data is:\n");
     while(Temp!=NULL)
     {
