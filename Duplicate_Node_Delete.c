@@ -1,5 +1,3 @@
-//Doubly Linked List
-
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -16,20 +14,19 @@ struct Node *Head;
 void create();
 void read();
 void display(int rev);
-void search();
-void insertion();
+void callelements();
 
 int main()
 {
   create();
   read();
-  display(1);
-  search();
-  insertion();
+  display(0);
+  callelements();
+  printf("\n//Duplicate Nodes deleted//");
+  display(0);
 
   return 0;
 }
-
 void create()
 {
   int n,i;
@@ -90,7 +87,7 @@ void display(int rev)
   struct Node *Temp=Head;
 
   //Display Forward
-  printf("The Linked List Data is:\n");
+  printf("\nThe Linked List Data is:\n");
   while(Temp->Link_n!=NULL)
   {
     printf("%d ",Temp->Data);
@@ -109,72 +106,55 @@ void display(int rev)
   }  
   }
   
-  
 }
 
-void search()
+void deleteduplicate(int x)
 {
-  int i=1,x;
-
-  printf("\nEnter the data to search for.\n");
-  scanf("%d",&x);
-
   struct Node *temp=Head;
-  while(temp!=NULL)
+  int flag=0;
+
+  while(temp->Link_n!=NULL)
   {
+    if((flag==1)&&(temp->Data==x))
+    {
+      if(temp->Link_n!=NULL)
+      {
+        struct Node *prev=malloc(sizeof(struct Node));
+        struct Node *next=malloc(sizeof(struct Node));
+
+        prev=temp->Link_p;
+        next=temp->Link_n;
+
+        prev->Link_n=next;
+        next->Link_p=prev;
+      }
+      else
+      {
+        struct Node *prev=malloc(sizeof(struct Node));
+
+        prev=temp->Link_p;
+        prev->Link_n=NULL;
+      }
+    }
     if(temp->Data==x)
     {
-      printf("The data was found in Node %d\n",i);
-
+      flag=1;
     }
 
     temp=temp->Link_n;
-    i++;
   }
 
 }
 
-void insertion()
+void callelements()
 {
-  struct Node *temp=malloc(sizeof(struct Node));
-
-  //Insertion at start
-  printf("Enter the data for new first Node.\n");
-  scanf("%d",&temp->Data);
-
-  temp->Link_n=Head;
-  Head->Link_p=temp;
-  temp->Link_p=NULL;
-
-  //Head pointer updated
-  Head=temp;
-
-  display(1);
-
-  //Insertion at end
-  struct Node *temp_n=malloc(sizeof(struct Node));
-  printf("\nEnter the data for new last Node.\n");
-  scanf("%d",&temp_n->Data);
-
-  temp=Head;
-  while(temp->Link_n!=NULL)
+  struct Node *temp=Head;
+  int x;
+  while(temp!=NULL)
   {
+    x=temp->Data;
+    deleteduplicate(x);
     temp=temp->Link_n;
   }
-  temp->Link_n=temp_n;
-  temp_n->Link_p=temp;
-  temp_n->Link_n=NULL;
-
-  display(1);
-
-  //Insertion at n
-  int n;
-
-  printf("Enter the position where you want to add the node.\n");
-  scanf("%d",&n);
-  
-
-
-
 
 }
