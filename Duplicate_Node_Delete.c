@@ -22,7 +22,7 @@ int main()
   read();
   display(0);
   callelements();
-  printf("\n//Duplicate Nodes deleted//");
+  printf("\n//Duplicate Nodes deleted//\n");
   display(0);
 
   return 0;
@@ -73,7 +73,7 @@ void read()
 
   while(Temp!=NULL)
   {
-    printf("Enter the Data for Node %d\n",i);
+    printf("Enter the Data for Node %d:",i);
     scanf("%d",&Temp->Data);
 
     Temp=Temp->Link_n;
@@ -87,7 +87,7 @@ void display(int rev)
   struct Node *Temp=Head;
 
   //Display Forward
-  printf("\nThe Linked List Data is:\n");
+  printf("The Linked List Data is:\n");
   while(Temp->Link_n!=NULL)
   {
     printf("%d ",Temp->Data);
@@ -113,7 +113,7 @@ void deleteduplicate(int x)
   struct Node *temp=Head;
   int flag=0;
 
-  while(temp->Link_n!=NULL)
+  while(temp!=NULL)
   {
     if((flag==1)&&(temp->Data==x))
     {
@@ -127,6 +127,8 @@ void deleteduplicate(int x)
 
         prev->Link_n=next;
         next->Link_p=prev;
+
+        free(temp);
       }
       else
       {
@@ -134,6 +136,7 @@ void deleteduplicate(int x)
 
         prev=temp->Link_p;
         prev->Link_n=NULL;
+        free(temp);
       }
     }
     if(temp->Data==x)
