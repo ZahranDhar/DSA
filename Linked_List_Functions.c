@@ -158,8 +158,6 @@ void insertion()
       printf("Enter the Data for new Node\n");
       scanf("%d",&temp->Data);
 
-      
-
       while(i<(n-1))
       {
         temp_1=temp_1->Link;
