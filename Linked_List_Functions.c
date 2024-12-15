@@ -11,6 +11,7 @@ struct Node
 };
 
 struct Node *Head;
+int size;
 
 void create();
 void read();
@@ -36,21 +37,21 @@ int main()
 
 void create()
 {
-  int i,n;
+  int i;
 
   do
   {
     printf("Enter the number of Nodes.\n");
-    scanf("%d",&n);
+    scanf("%d",&size);
 
-    if(n<2)
+    if(size<2)
     {
       printf("ERROR\n");
     }
-  } while (n<2);
+  } while (size<2);
 
   struct Node *Temp_1=NULL;
-  for(i=1;i<=n;i++)
+  for(i=1;i<=size;i++)
   {
     if(i==1)
     {
@@ -128,103 +129,100 @@ void search()
 
 void insertion()
 {
-    struct Node *temp=Head;
-    //Insertion at start
-    struct Node* Zeroth=(struct Node*)(malloc(sizeof(struct Node)));
-    printf("Enter Data for new first Node.\n");
-    scanf("%d",&(Zeroth->Data));
-    Zeroth->Link=temp;
+   int n;
 
-    //Head Pointer Updated
-    Head=Zeroth;
-    display(1);
-    
-    //Temp Pointer Updated
-    temp=Zeroth;     
-    
-    //Insertion at end
-    struct Node* Fourth=(struct Node*)(malloc(sizeof(struct Node)));
-    printf("Enter the Data for new last Node.\n");
-    scanf("%d",&(Fourth->Data));
-    Fourth->Link=NULL;
-    
-    while(temp->Link!=NULL)
-    {
-    temp=temp->Link;
-    }
-    temp->Link=Fourth;
-    display(1);
-
-    //Temp Pointer Updated
-    temp=Zeroth; 
-
-    //Insertion at n
-    int n,i=2;
-    printf("Enter the position where you want to add the Node.\n");
+   do
+   {
+    printf("\nEnter the position where to add Node\nEnter 0 for Exit\n");
     scanf("%d",&n);
-    struct Node* Nth=(struct Node*)(malloc(sizeof(struct Node)));
-    printf("Enter Data for N'th Node.\n");
-    scanf("%d",&(Nth->Data));
-    struct Node* prev=temp;
-    struct Node* pres=temp->Link;
-    while(i<n)
-    {
-      prev=pres;
-      pres=pres->Link;
-      i++;
-    }
-    prev->Link=Nth; 
-    Nth->Link=pres;
-    display(1);
 
+    if(n==1)
+    {
+      struct Node *temp=malloc(sizeof(struct Node));
+      printf("Enter the Data for new Node\n");
+      scanf("%d",&temp->Data);
+
+      temp->Link=Head;
+      Head=temp;
+      size++;
+
+      display(1);
+    }
+    else if(n>1&&n<=(size+1))
+    {
+      int i=1;
+      struct Node *temp_1=Head;
+      struct Node *temp_2;
+
+      struct Node *temp=malloc(sizeof(struct Node));
+      printf("Enter the Data for new Node\n");
+      scanf("%d",&temp->Data);
+
+      
+
+      while(i<(n-1))
+      {
+        temp_1=temp_1->Link;
+        i++;
+      }
+
+      temp_2=temp_1->Link;
+
+      temp_1->Link=temp;
+      temp->Link=temp_2;
+      
+      size++;
+
+      display(1);
+    
+    }
+    else
+    {
+      break;
+    }
+    
+   } while (n!=0);
+   
 }
 
 void deletion()
 {
-  struct Node* temp=Head;
-  //Deleting first Node
-  struct Node* tempn=temp->Link;
-  free(temp);
-  printf("//First Node deleted//.\n");
+  int n;
 
-  //Head Node Updated
-  Head=tempn;
-  display(1);
-
-  //Temp Pointer Updated
-  temp=tempn; 
-
-  //Deleting last Node
-  while(temp->Link->Link!=NULL)
+  do
   {
-    temp=temp->Link;
-  }
-  free(temp->Link);
-  temp->Link=NULL;
-  printf("//Last Node deleted//.\n");
-  display(1);
+    printf("\nEnter the position of Node to delete\nEnter 0 for exit\n");
+    scanf("%d",&n);
 
-  //Temp Pointer Updated
-  temp=tempn; 
+    if(n==1)
+    {
+      Head=Head->Link;
 
-  //Deleting N'th Node
-  int n,i=2;
-  printf("Enter the position of Node you want to delete.\n");
-  scanf("%d",&n);
-  struct Node* prev=temp;
-  struct Node* pres=temp->Link;
-  struct Node* next=pres->Link;
-  while(i<n)
-  {
-    prev=pres;
-    pres=pres->Link;
-    next=pres->Link;
-    i++;
-  }
-  prev->Link=next;
-  free(pres);
-  printf("//Nth Node deleted//.\n");
-  display(1);
+      display(1);
+    }
+    else if(n>1&&n<=size)
+    {
+      int i=1;
+
+      struct Node *temp=Head;
+
+      while(i<(n-1))
+      {
+        temp=temp->Link;
+        i++;
+      }
+
+      temp->Link=temp->Link->Link;
+
+      display(1);
+
+    }
+    else
+    {
+      break;
+    }
+  } while (n!=0);
+  
 
 }
 
