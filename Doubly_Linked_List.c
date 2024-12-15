@@ -27,7 +27,7 @@ int main()
   create();
   read();
   display();
-  search();
+  // search();
   insertion();
   deletion();
   freespace();
@@ -67,7 +67,11 @@ void create()
       struct Node *Temp_2=(struct Node*)(malloc(sizeof(struct Node)));
       Temp_2->Link_p=Temp_1;
       Temp_1->Link_n=Temp_2;
-      Temp_2->Link_n=NULL;
+      
+      if(i==size)
+      {
+        Temp_2->Link_n=NULL;
+      }
 
       Temp_1=Temp_2;
     }
@@ -101,7 +105,7 @@ void display()
     printf("%d ",Temp->Data);
     Temp=Temp->Link_n;
   }
-  printf("%d ",Temp->Data);
+  printf("%d",Temp->Data);
 
   //Display Reverse
   printf("\nThe Linked List Data Reversed is:\n");
@@ -144,7 +148,6 @@ void insertion()
 
     if(n==1)
     {
-      //Insertion at start
 
       struct Node *temp=malloc(sizeof(struct Node));
       printf("Enter the data for new first Node.\n");
@@ -161,56 +164,40 @@ void insertion()
       display();
 
     }
-    else if(n==(size+1))
+    else if(n>1&&(n<=(size+1)))
     {
-      //Insertion at end
-      struct Node *temp=Head;
+      int i=1;
+      struct Node *temp_1=Head;
+      struct Node *temp_2;
 
-      struct Node *temp_n=malloc(sizeof(struct Node));
-      printf("Enter the data for new last Node.\n");
-      scanf("%d",&temp_n->Data);
+      struct Node *temp=malloc(sizeof(struct Node));
+      printf("Enter the data for new Node.\n");
+      scanf("%d",&temp->Data);
 
-      while(temp->Link_n!=NULL)
+      while(i<(n-1))
       {
-        temp=temp->Link_n;
+        temp_1=temp_1->Link_n;
+        i++;
       }
-      temp->Link_n=temp_n;
-      temp_n->Link_p=temp;
-      temp_n->Link_n=NULL;
+      temp_2=temp_1->Link_n;
+
+      temp_1->Link_n=temp;
+      temp->Link_p=temp_1;
+      temp->Link_n=temp_2;
+      
+      if(temp_2!=NULL)
+      {
+        temp_2->Link_p=temp;
+      }
 
       //Size updated
       size++;
 
       display();
     }
-    else if((n>>1)||(n<<size))
+    else
     {
-      //Insertion at k
-      int i=2;
-      struct Node *temp=Head->Link_n;
-
-      struct Node *temp_n=malloc(sizeof(struct Node));
-      printf("Enter the data for new Node.\n");
-      scanf("%d",&temp_n->Data);
-
-      while(i<n)
-      {
-        temp=temp->Link_n;
-        i++;
-      }
-
-      struct Node *prev=temp->Link_p;
-
-      prev->Link_n=temp_n;
-      temp_n->Link_p=prev;
-      temp_n->Link_n=temp;
-      temp->Link_p=temp_n;
-
-      //Size updated
-      size++;
-
-      display();
-
+      break;
     }
 
  } while (n!=0);
@@ -228,38 +215,18 @@ void deletion()
 
     if(n==1)
     {
-      //First Node delete
-      struct Node *temp=Head->Link_n;
-      temp->Link_p=NULL;
+      Head=Head->Link_n;
+      Head->Link_p=NULL;
       
-      //Head pointer and size updated
-      Head=temp;
       size--;
 
       display();
     }
-    else if(n==size)
+    else if((n>1)&&(n<=size))
     {
-      //Last Node delete
+      int i=1;
+
       struct Node *temp=Head;
-
-      while(temp->Link_n!=NULL)
-      {
-        temp=temp->Link_n;
-      }
-      temp->Link_p->Link_n=NULL;
-
-      //Size updated
-      size--;
-
-      display();
-    }
-    else if((n>>1)||(n<<size))
-    {
-      //K Node delete
-      int i=2;
-
-      struct Node *temp=Head->Link_n;
 
       while(i<n)
       {
@@ -267,16 +234,20 @@ void deletion()
         i++;
       }
 
-      struct Node *prev=temp->Link_p;
-      struct Node *next=temp->Link_n;
+      temp->Link_p->Link_n=temp->Link_n;
 
-      prev->Link_n=next;
-      next->Link_p=prev;
+      if(temp->Link_n!=NULL)
+      {
+        temp->Link_n->Link_p=temp->Link_p;
+      }
 
-      //Size updated
       size--;
 
       display();
+    }
+    else
+    {
+      break;
     }
   } while (n!=0);
   
