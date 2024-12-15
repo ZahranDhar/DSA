@@ -27,7 +27,7 @@ int main()
   read();
   display();
   search();
-  insertion();
+  // insertion();
   deletion();
   freespace();
 
@@ -132,64 +132,54 @@ void insertion()
     printf("\nEnter the position to add Node.\nPRESS 0 FOR EXIT\n");
     scanf("%d",&n);
 
-  
-    struct Node *temp_n=Head;
-
     if(n==1)
     {
+      struct Node *temp_1=Head;
+      
       struct Node *temp=malloc(sizeof(struct Node));
       printf("Enter data for Node %d.\n",n);
       scanf("%d",&temp->Data);
 
-      do
+      while(temp_1->Link!=Head)
       {
-        temp_n=temp_n->Link;
-      } while (temp_n->Link!=Head);
+        temp_1=temp_1->Link;
+      }
+      temp_1->Link=temp;
 
-      temp_n->Link=temp;
       temp->Link=Head;
 
       Head=temp;
       size++;
+      display();
     }
-    else if (n==(size+1))
-    {
-      struct Node *temp=malloc(sizeof(struct Node));
-      printf("Enter data for Node %d.\n",n);
-      scanf("%d",&temp->Data);
-
-      temp_n=Head;
-      while(temp_n->Link!=Head)
-      {
-        temp_n=temp_n->Link;
-      }
-
-      temp_n->Link=temp;
-      temp->Link=Head;
-
-      size++;
-    }
-    else if((n>1)&&(n<=size))
+    else if((n>1)&&(n<=size+1))
     {
       int i=1;
+      struct Node *temp_1=Head;
+      struct Node *temp_2;
 
       struct Node *temp=malloc(sizeof(struct Node));
       printf("Enter data for Node %d.\n",n);
       scanf("%d",&temp->Data);
       
-      struct Node *temp_p=Head;
       while(i<(n-1))
       {
-        temp_p=temp_p->Link;
+        temp_1=temp_1->Link;
         i++;
       }
+      temp_2=temp_1->Link;
       
-      temp->Link=temp_p->Link;
-      temp_p->Link=temp;
+      temp_1->Link=temp;
+      temp->Link=temp_2;
 
       size++;
+      display();
     }
-    display();
+    else
+    {
+      break;
+    }
+    
   } while (n!=0);
   
 }
@@ -203,28 +193,27 @@ void deletion()
     printf("\nEnter the position of Node to delete.\nPRESS 0 FOR EXIT\n");
     scanf("%d",&n);
 
-    struct Node *temp=malloc(sizeof(struct Node));
-    struct Node *temp_n=malloc(sizeof(struct Node));
-
     if(n==1)
     {
-      temp=Head->Link;
+      struct Node *temp_1=Head->Link;
 
-      temp_n=Head;
-      while(temp_n->Link!=Head)
+      struct Node *temp_2=Head;
+      while(temp_2->Link!=Head)
       {
-        temp_n=temp_n->Link;
+        temp_2=temp_2->Link;
       }
 
-      temp_n->Link=temp;
+      temp_2->Link=temp_1;
       free(Head);
-      Head=temp;
+
+      Head=temp_1;
       size--;
+      display();
     }
     else if((n>1)&&(n<=size))
     {
       int i=1;
-      temp=Head;
+      struct Node *temp=Head;
 
       while(i<(n-1))
       {
@@ -232,14 +221,17 @@ void deletion()
         i++;
       }
 
-      temp_n=temp->Link->Link;
+      temp->Link=temp->Link->Link;
       free(temp->Link);
-      temp->Link=temp_n;
 
       size--;
+      display();
     }
-
-    display();
+    else
+    {
+      break;
+    }
+    
   } while (n!=0);
   
 }
