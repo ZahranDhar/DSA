@@ -213,16 +213,17 @@ void deletion()
     else if((n>1)&&(n<=size))
     {
       int i=1;
-      struct Node *temp=Head;
+      struct Node *temp_1=Head;
 
       while(i<(n-1))
       {
-        temp=temp->Link;
+        temp_1=temp_1->Link;
         i++;
       }
 
-      temp->Link=temp->Link->Link;
-      free(temp->Link);
+      struct Node *temp_2=temp_1->Link;
+      temp_1->Link=temp_1->Link->Link;
+      free(temp_2->Link);
 
       size--;
       display();
