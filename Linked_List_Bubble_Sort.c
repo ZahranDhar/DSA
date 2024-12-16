@@ -16,6 +16,7 @@ int size;
 void create();
 void display();
 void sort();
+void freespace();
 
 int main()
 {
@@ -67,6 +68,7 @@ int main()
     }
   } while (n!=0);
   
+  freespace();
 
   return 0;
 }
@@ -165,5 +167,17 @@ void sort()
         }
       }
     }
+  }
+}
+
+void freespace()
+{
+  struct Node* temp=Head;
+  struct Node* tempn=NULL;
+  while(temp!=NULL)
+  {
+    tempn=temp->Link;
+    free(temp);
+    temp=tempn;
   }
 }
