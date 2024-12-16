@@ -19,9 +19,54 @@ void sort();
 
 int main()
 {
-  create();
-  display();
-  sort();
+  int n;
+  do
+  {
+    printf("\nPress 1 to Enter Data\nPress 2 to Display Data\nPress 3 to Sort data\nPress 0 to Exit\n");
+    scanf("%d",&n);
+
+    switch(n)
+    {
+      case 1:
+      create();
+      printf("Data Entered Successfully\n");
+      break;
+
+      case 2:
+      if(Head==NULL)
+      {
+        printf("No Data to display\n");
+      }
+      else
+      {
+        printf("The Data is: \n");
+        display();
+      }
+      break;
+
+      case 3:
+      if(Head==NULL)
+      {
+        printf("No Data to Sort\n");
+      }
+      else
+      {
+        sort();
+        printf("Data Sorted Successfully\n");
+      }
+      break;
+
+      case 0:
+      printf("Exited Successfully\n");
+      break;
+
+      default:
+      printf("ERROR");
+      break;
+
+    }
+  } while (n!=0);
+  
 
   return 0;
 }
@@ -102,13 +147,23 @@ void sort()
           temp2->Link=temp4;
           Head=temp3;
         }
+        temp1=temp3;
+        temp3=temp4;
+        if(temp4!=NULL)
+        {
+          temp4=temp4->Link;
+        }
       }
-      temp1=temp2;
-      temp2=temp2->Link;
-      temp3=temp3->Link;
-      temp4=temp4->Link;
+      else
+      {
+        temp1=temp2;
+        temp2=temp2->Link;
+        temp3=temp3->Link;
+        if(temp4!=NULL)
+        {
+          temp4=temp4->Link;
+        }
+      }
     }
   }
-  printf("\n");
-  display();
 }
